@@ -16,9 +16,9 @@
 # Variáveis globais
 ## Obs: Elaborar arquivo de configuração
 
-MAC="00:00:00:00:00:00"         # Endereço MAC do dispositivo.
+MAC="88:D0:39:9B:B7:6A"         # Endereço MAC do dispositivo.
 BATERIA_MIN_REF="30"            # Valor que serve como parâmetro indicativo de bateria baixa.
-SYSTEM_USER="USER"              # Usuário do sistema. Pode ser subtituído pela variável de ambiente "$USER"
+SYSTEM_USER="marlen"            # Usuário do sistema. Pode ser subtituído pela variável de ambiente "$USER"
 
 # Filtra nome do modelo do dispositivo a partir do comando bluetoothctl
 MARCAMODELO=$(bluetoothctl info ${MAC} | awk -F: '$1 ~ /(Name).*/{ printf "%s\n",$2}' | sed "s/^ *//")
