@@ -6,6 +6,10 @@
 # descrição..: Alerta quando o fone/headset bluetooth
 #              está com a carga da bateria baixa través
 #              de pop-up na barra de notificação.
+#              
+# Versão 0.3: Foi adicionado opção "-t" e "-h" que mostra
+#             - Opção "-t" mostra nível atual de bateria via terminal
+#             - Opção "-h" mostra ajuda
 #
 #   Depências:
 #       - apt-get install libbluetooth-dev
