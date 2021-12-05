@@ -1,0 +1,4 @@
+# A cada 10 minutos o cron executará o script alerta_bateria_fone-bluetooth.sh
+
+*/10 * * * * marlen /opt/alerta_bateria_bluetooth/alerta_bateria_fone-bluetooth.sh
+

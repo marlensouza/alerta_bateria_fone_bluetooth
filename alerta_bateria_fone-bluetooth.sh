@@ -11,18 +11,21 @@
 #             - Opção "-t" mostra nível atual de bateria via terminal
 #             - Opção "-h" mostra ajuda
 #
-#   Depências:
-#       - apt-get install libbluetooth-dev
-#       - pip3 install bluetooth_battery
+#
+# Dependências:
+#       - sudo apt-get install libbluetooth-dev
+#       - sudo pip3 install bluetooth_battery
 #       - Agendar execução no crontab              
 #
 
 # Variáveis globais
 ## Obs: Elaborar arquivo de configuração
 
-MAC="00:00:00:00:00:00"         # Endereço MAC do dispositivo.
+#MAC="00:00:00:00:00:00"         # Endereço MAC do dispositivo.
+MAC="88:D0:39:9B:B7:6A"
 BATERIA_MIN_REF="30"            # Valor que serve como parâmetro indicativo de bateria baixa.
-SYSTEM_USER="USER"            # Usuário do sistema. Pode ser subtituído pela variável de ambiente "$USER"
+SYSTEM_USER="$USER"             # Usuário do sistema. A variável receberá como parâmetro o usuári 
+                                # definido no arquivo cron_file_alerta_bateria_bluetooth
 
 # Filtra nome do modelo do dispositivo a partir do comando bluetoothctl
 MARCAMODELO=$(bluetoothctl info ${MAC} | awk -F: '$1 ~ /(Name).*/{ printf "%s\n",$2}' | sed "s/^ *//")
@@ -34,13 +37,12 @@ ON_OFF=$(bluetoothctl info ${MAC} | awk '$0 ~ /Connected: (no|yes)/ {print $2 }'
 # Mostra valor bruto do nível de bateria.
 func_nivelbateria(){
 
-# Problema na variável PATH obriga a por o caminho do or extenso do bluetooth_battery
-NIVELBATERIA=$(/home/"$SYSTEM_USER"/.local/bin/bluetooth_battery ${MAC} | awk '{ printf "%d\n" , $NF }')
+NIVELBATERIA=$(/usr/local/bin/bluetooth_battery ${MAC} | awk '{ printf "%d\n" , $NF }')
 
 }
 
 # A função func_bateria gera alerta de nível de bateria na tela via notify-send.
-func_bateria(){
+func_bateria_popup(){
 
 if [[ -n "$NIVELBATERIA" ]] && [[ "$NIVELBATERIA" -lt "${BATERIA_MIN_REF}" ]]
 then
@@ -53,9 +55,7 @@ fi
 # Opções para uso no terminal
 case $1 in
    
-   -t|--terminal)
-
-      
+   -t|--terminal)      
 
       if [[ "$ON_OFF" = "yes" ]]
       then
@@ -100,5 +100,5 @@ esac
 if [[ "$ON_OFF" = "yes" ]]
 then
   func_nivelbateria
-  func_bateria
+  func_bateria_popup
 fi
