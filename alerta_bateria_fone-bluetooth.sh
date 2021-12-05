@@ -22,10 +22,9 @@
 ## Obs: Elaborar arquivo de configuração
 
 #MAC="00:00:00:00:00:00"         # Endereço MAC do dispositivo.
-MAC="88:D0:39:9B:B7:6A"
-BATERIA_MIN_REF="30"            # Valor que serve como parâmetro indicativo de bateria baixa.
-SYSTEM_USER="$USER"             # Usuário do sistema. A variável receberá como parâmetro o usuári 
-                                # definido no arquivo cron_file_alerta_bateria_bluetooth
+BATERIA_MIN_REF="30"             # Valor que serve como parâmetro indicativo de bateria baixa.
+SYSTEM_USER="$USER"              # Usuário do sistema. A variável receberá como parâmetro o usuári 
+                                 # definido no arquivo cron_file_alerta_bateria_bluetooth
 
 # Filtra nome do modelo do dispositivo a partir do comando bluetoothctl
 MARCAMODELO=$(bluetoothctl info ${MAC} | awk -F: '$1 ~ /(Name).*/{ printf "%s\n",$2}' | sed "s/^ *//")
