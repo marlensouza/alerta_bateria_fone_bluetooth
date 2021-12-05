@@ -1,6 +1,6 @@
 
 configure: dependencias pasta_base link_bin cron_config
-	@echo "Configurado com sucesso"
+	@echo -e "\n Configurado com sucesso \n"
 
 cron_config:
 	cp cron_file_alerta_bateria_bluetooth /etc/cron.d/cron_file_alerta_bateria_bluetooth
