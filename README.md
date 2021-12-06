@@ -2,7 +2,7 @@
 alerta_bateria_fone_bluetooth
 ===
 
-> :warning: Documentção provisoria! :warning:
+> :warning: Documentação provisoria! :warning:
 
 ## Instação
 
