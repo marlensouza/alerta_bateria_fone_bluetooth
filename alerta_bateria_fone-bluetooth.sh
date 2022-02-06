@@ -21,8 +21,8 @@
 # Variáveis globais
 ## Obs: Elaborar arquivo de configuração
 
-MAC="00:00:00:00:00:00"          # Endereço MAC do dispositivo.
-BATERIA_MIN_REF="30"             # Valor que serve como parâmetro indicativo de bateria baixa.
+MAC="88:D0:39:9B:B7:6A"          # Endereço MAC do dispositivo.
+BATERIA_MIN_REF="100"             # Valor que serve como parâmetro indicativo de bateria baixa.
 SYSTEM_USER="$USER"              # Usuário do sistema. A variável receberá como parâmetro o usuário 
                                  # definido no arquivo cron_file_alerta_bateria_bluetooth
 
@@ -115,7 +115,11 @@ case $1 in
 esac
 
 if [[ "$ON_OFF" = "yes" ]]
-then
-  func_nivelbateria
-  func_bateria_popup
+  then
+    while true
+    do
+      sleep 15
+      func_nivelbateria
+      func_bateria_popup
+    done
 fi

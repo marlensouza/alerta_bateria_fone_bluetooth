@@ -1,0 +1,12 @@
+[Unit]
+Description=Alerta de nível baixo de bateria do fone bluetooth
+ 
+[Service]
+Type=simple
+User=marlen
+ExecStart=/usr/bin/bash -c /usr/bin/alerta_bateria_fone-bluetooth.sh
+Restart=always
+RestartSec=10
+ 
+[Install]
+WantedBy=multi-user.target
