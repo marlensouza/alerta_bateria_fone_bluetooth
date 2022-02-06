@@ -1,6 +1,6 @@
 
 configure: dependencias pasta_base link_bin systemd_config
-	@echo -e "\n Configurado com sucesso \n"
+	@printf "\nConfigurado com sucesso\n\n"
 
 systemd_config:
 	systemctl start alerta_bateria_fone-bluetooth.service

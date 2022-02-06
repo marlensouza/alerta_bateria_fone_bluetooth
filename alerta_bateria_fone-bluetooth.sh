@@ -22,8 +22,8 @@
 ## Obs: Elaborar arquivo de configuração
 
 MAC="88:D0:39:9B:B7:6A"          # Endereço MAC do dispositivo.
-BATERIA_MIN_REF="100"             # Valor que serve como parâmetro indicativo de bateria baixa.
-SYSTEM_USER="$USER"              # Usuário do sistema. A variável receberá como parâmetro o usuário 
+BATERIA_MIN_REF="20"             # Valor que serve como parâmetro indicativo de bateria baixa.
+SYSTEM_USER="marlen"              # Usuário do sistema. A variável receberá como parâmetro o usuário 
                                  # definido no arquivo cron_file_alerta_bateria_bluetooth
 
 # Filtra nome do modelo do dispositivo a partir do comando bluetoothctl
@@ -38,14 +38,14 @@ func_nivelbateria(){
  
 }
 
-func_bateria_popup(){
+func_bateria_popup(){  
 
-if [[ -n "$NIVELBATERIA" ]] && [[ "$NIVELBATERIA" -lt "${BATERIA_MIN_REF}" ]]
-then
+  if [[ -n "$NIVELBATERIA" ]] && [[ "$NIVELBATERIA" -le "${BATERIA_MIN_REF}" ]]
+  then
 
-  export DISPLAY=:0 && DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$( id -u "$SYSTEM_USER" )/bus  notify-send "${MARCAMODELO}: Carga restante em ${NIVELBATERIA}%"
+    export DISPLAY=:0 && DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$( id -u "$SYSTEM_USER" )/bus  notify-send "${MARCAMODELO}: Carga restante em ${NIVELBATERIA}%"
 
-fi
+  fi
 }
 
 func_bateria_terminal(){
@@ -114,11 +114,12 @@ case $1 in
     ;;
 esac
 
+# Daemon
 if [[ "$ON_OFF" = "yes" ]]
   then
     while true
     do
-      sleep 15
+      sleep 1200
       func_nivelbateria
       func_bateria_popup
     done
